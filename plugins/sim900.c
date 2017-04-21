@@ -283,6 +283,12 @@ static void cfun_enable(gboolean ok, GAtResult *result, gpointer user_data)
 			mux_setup_cb, modem, NULL);
 }
 
+static void atz_callback(gboolean ok, GAtResult *result, gpointer user_data)
+{
+	DBG("ATZ callback");
+	sleep(5);
+}
+
 static int sim900_enable(struct ofono_modem *modem)
 {
 	struct sim900_data *data = ofono_modem_get_data(modem);

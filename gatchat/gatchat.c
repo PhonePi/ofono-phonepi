@@ -29,6 +29,8 @@
 #include <assert.h>
 #include <ctype.h>
 #include <errno.h>
+#include <stdio.h>
+
 
 #include <glib.h>
 
@@ -431,6 +433,11 @@ static gboolean at_chat_match_notify(struct at_chat *chat, char *line)
 	return ret;
 }
 
+static void print_responce_line(gpointer data, gpointer user_data)
+{
+    printf("%s\n", (char*)data);
+}
+
 static void at_chat_finish_command(struct at_chat *p, gboolean ok, char *final)
 {
 	struct at_command *cmd = g_queue_pop_head(p->command_queue);
@@ -447,6 +454,10 @@ static void at_chat_finish_command(struct at_chat *p, gboolean ok, char *final)
 
 	response_lines = p->response_lines;
 	p->response_lines = NULL;
+
+    printf("AT Responce for: %s, Responce lines:", cmd->cmd);
+    g_list_foreach(response_lines, print_responce_line, NULL);
+    printf("\n");
 
 	if (cmd->callback) {
 		GAtResult result;
@@ -1036,6 +1047,18 @@ static guint at_chat_send_common(struct at_chat *chat, guint gid,
 				user_data, notify, FALSE);
 	if (c == NULL)
 		return 0;
+
+    printf("AT Command: %s, Flags: %d, Prefix list: ", cmd, flags);
+    if (prefix_list == NULL) {
+        printf("\n");
+    } else {
+        int i = 0;
+        while (prefix_list[i] != NULL) {
+            printf("%s, ", prefix_list[i]);
+            ++i;
+        }
+        printf("\n");
+    }
 
 	c->id = chat->next_cmd_id++;
 
