@@ -456,7 +456,7 @@ static void at_chat_finish_command(struct at_chat *p, gboolean ok, char *final)
 	p->response_lines = NULL;
 
     printf("AT Responce for: %s, Responce lines:", cmd->cmd);
-    g_list_foreach(response_lines, print_responce_line, NULL);
+    g_slist_foreach(response_lines, print_responce_line, NULL);
     printf("\n");
 
 	if (cmd->callback) {

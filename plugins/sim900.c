@@ -29,6 +29,7 @@
 #include <gatchat.h>
 #include <gattty.h>
 #include <gatmux.h>
+#include <unistd.h>
 
 #define OFONO_API_SUBJECT_TO_CHANGE
 #include <ofono/plugin.h>
@@ -299,6 +300,7 @@ static int sim900_enable(struct ofono_modem *modem)
 	if (data->dlcs[SETUP_DLC] == NULL)
 		return -EINVAL;
 
+	g_at_chat_send(data->dlcs[SETUP_DLC], "ATZ", NULL, atz_callback, NULL, NULL);
 	g_at_chat_send(data->dlcs[SETUP_DLC], "ATE0", NULL, NULL, NULL, NULL);
 
 	/* For obtain correct sms service number */
