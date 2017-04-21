@@ -313,18 +313,18 @@ static int sim900_enable(struct ofono_modem *modem)
 	return -EINPROGRESS;
 }
 
-static void cfun_disable(gboolean ok, GAtResult *result, gpointer user_data)
-{
-	struct ofono_modem *modem = user_data;
-	struct sim900_data *data = ofono_modem_get_data(modem);
-
-	DBG("");
-
-	shutdown_device(data);
-
-	if (ok)
-		ofono_modem_set_powered(modem, FALSE);
-}
+//static void cfun_disable(gboolean ok, GAtResult *result, gpointer user_data)
+//{
+//	struct ofono_modem *modem = user_data;
+//	struct sim900_data *data = ofono_modem_get_data(modem);
+//
+//	DBG("");
+//
+//	shutdown_device(data);
+//
+//	if (ok)
+//		ofono_modem_set_powered(modem, FALSE);
+//}
 
 static int sim900_disable(struct ofono_modem *modem)
 {
@@ -332,10 +332,12 @@ static int sim900_disable(struct ofono_modem *modem)
 
 	DBG("%p", modem);
 
-	g_at_chat_send(data->dlcs[SETUP_DLC], "AT+CFUN=4", none_prefix,
-					cfun_disable, modem, NULL);
+	//g_at_chat_send(data->dlcs[SETUP_DLC], "AT+CFUN=4", none_prefix,
+	//				/*cfun_disable*/ NULL, modem, NULL);
 
-	return -EINPROGRESS;
+    shutdown_device(data);
+    ofono_modem_set_powered(modem, FALSE);
+	return 0;//-EINPROGRESS;
 }
 
 static void sim900_pre_sim(struct ofono_modem *modem)
