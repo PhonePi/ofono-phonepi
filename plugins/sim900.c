@@ -332,8 +332,8 @@ static int sim900_disable(struct ofono_modem *modem)
 
 	DBG("%p", modem);
 
-	//g_at_chat_send(data->dlcs[SETUP_DLC], "AT+CFUN=4", none_prefix,
-	//				/*cfun_disable*/ NULL, modem, NULL);
+	g_at_chat_send(data->dlcs[SETUP_DLC], "AT+CFUN=4", none_prefix,
+					/*cfun_disable*/ NULL, modem, NULL);
 
     shutdown_device(data);
     ofono_modem_set_powered(modem, FALSE);
