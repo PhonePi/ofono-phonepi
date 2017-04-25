@@ -14,4 +14,10 @@ fi
 		--enable-test \
 		--enable-tools \
 		--enable-dundee \
-		--disable-datafiles $*
+		--disable-datafiles $* \
+		--disable-bluetooth \
+		--disable-isimodem \
+		--disable-qmimodem \
+		--disable-rilmodem \
+		--disable-cdmamodem \
+		--disable-dependency-tracking

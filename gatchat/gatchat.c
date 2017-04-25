@@ -433,10 +433,12 @@ static gboolean at_chat_match_notify(struct at_chat *chat, char *line)
 	return ret;
 }
 
+#ifdef AT_DEBUG
 static void print_responce_line(gpointer data, gpointer user_data)
 {
     printf("%s\n", (char*)data);
 }
+#endif
 
 static void at_chat_finish_command(struct at_chat *p, gboolean ok, char *final)
 {
@@ -455,9 +457,11 @@ static void at_chat_finish_command(struct at_chat *p, gboolean ok, char *final)
 	response_lines = p->response_lines;
 	p->response_lines = NULL;
 
+#ifdef AT_DEBUG
     printf("AT Responce for: %s, Responce lines:", cmd->cmd);
     g_slist_foreach(response_lines, print_responce_line, NULL);
     printf("\n");
+#endif
 
 	if (cmd->callback) {
 		GAtResult result;
@@ -1048,6 +1052,7 @@ static guint at_chat_send_common(struct at_chat *chat, guint gid,
 	if (c == NULL)
 		return 0;
 
+#ifdef AT_DEBUG
     printf("AT Command: %s, Flags: %d, Prefix list: ", cmd, flags);
     if (prefix_list == NULL) {
         printf("\n");
@@ -1059,6 +1064,7 @@ static guint at_chat_send_common(struct at_chat *chat, guint gid,
         }
         printf("\n");
     }
+#endif
 
 	c->id = chat->next_cmd_id++;
 

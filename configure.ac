@@ -1,5 +1,5 @@
 AC_PREREQ(2.60)
-AC_INIT(ofono, 1.19)
+AC_INIT(ofono, 1.19-1)
 
 AM_INIT_AUTOMAKE([foreign subdir-objects color-tests])
 AC_CONFIG_HEADERS(config.h)
@@ -29,6 +29,13 @@ m4_ifdef([AC_LIBTOOL_TAGS], [AC_LIBTOOL_TAGS([])])
 
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
+
+AC_ARG_ENABLE(at-debug, AC_HELP_STRING([--enable-at-debug],
+			[enable all at commands printing in debug]), [
+	if (test "${enableval}" = "yes"); then
+		AC_DEFINE([AT_DEBUG], [], [If this is defined, there will be printf's in at chat])
+	fi
+])
 
 AC_ARG_ENABLE(optimization, AC_HELP_STRING([--disable-optimization],
 			[disable code optimization through compiler]), [
