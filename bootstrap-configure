@@ -5,11 +5,12 @@ if [ -f config.status ]; then
 fi
 
 ./bootstrap && \
-    ./configure --enable-maintainer-mode \
-		--enable-debug \
-		--prefix=/usr \
-		--mandir=/usr/share/man \
+    ./configure	--prefix=/usr \
 		--sysconfdir=/etc \
+		--sbindir=/usr/bin \
+		--enable-maintainer-mode \
+		--enable-debug \
+		--mandir=/usr/share/man \
 		--localstatedir=/var \
 		--enable-test \
 		--enable-tools \
